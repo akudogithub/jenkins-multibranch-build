@@ -63,7 +63,7 @@ pipeline{
 				}
 				stage('sub-job-final-test'){
 					steps{
-						sh 'logname'
+						sh 'id jenkins'
 					}
 				}
 			}

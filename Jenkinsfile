@@ -11,33 +11,31 @@ pipeline{
 				sh 'lscpu'
 			}
 		} 
-	}
-	stages{
-		parallel{
-			stage('parallel-job'){
-				steps{
-					sh 'lsblk'
+		stage('parallel-job1'){
+			parallel{
+				stage('sub-job-code'){
+					steps{
+						sh 'lsblk'
+					}
 				}
-			}
-			stage('sub-job-sast'){
-				when{
-					branch 'develop'
-				}
-				steps{
-					sh 'id ubuntu'
-				}
-			}
-			stage('sub-job-dast'){
-				when{
-					branch 'feature'
-				}
-				steps{
-					sh 'cal'
+				stage('sub-job-sast'){
+					when{
+						branch 'develop'
+					}
+					steps{
+						sh 'id ubuntu'
+					}
+				}	
+				stage('sub-job-dast'){
+					when{
+						branch 'feature'
+					}
+					steps{
+						sh 'cal'
+					}
 				}
 			}
 		}
-	}
-	stages{
 		stage('3-code-acceptance test'){
 			steps{
 				sh 'date'
@@ -56,22 +54,20 @@ pipeline{
 				sh 'sort -r /etc/passwd'
 			}
 		}
-	}
-	stages{
-		parallel{
-			stage('sub-job-unit-test'){
-				steps{
-					sh 'touch file1'
+		stage('parallel-job2'){
+			parallel{
+				stage('sub-job-unit-test'){
+					steps{
+						sh 'touch file1'
+					}
 				}
-			}
-			stage('sub-job-final-test'){
-				steps{
-					sh 'mkdir buildjob1'
+				stage('sub-job-final-test'){
+					steps{
+						sh 'mkdir buildjob1'
+					}
 				}
 			}
 		}
-	}
-	stages{
 		stage('6-uat'){
 			steps{
 				sh 'sudo find / -name ubuntu'

@@ -70,7 +70,7 @@ pipeline{
 		}
 		stage('6-uat'){
 			steps{
-				sh 'sudo find / -name ubuntu'
+				sh 'uptime'
 			}
 		}
 		stage('prod'){

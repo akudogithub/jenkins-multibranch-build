@@ -61,12 +61,12 @@ pipeline{
 		parallel{
 			stage('sub-job-unit-test'){
 				steps{
-					sh 'touch file1'
+					sh 'pwd'
 				}
 			}
 			stage('sub-job-final-test'){
 				steps{
-					sh 'mkdir buildjob1'
+					sh 'logname'
 				}
 			}
 		}
